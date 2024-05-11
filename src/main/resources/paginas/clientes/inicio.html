@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/node_modules/bootstrap/dist/css/bootstrap.min.css}">
+    <title>Document</title>
+</head>
+<body>
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container">
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a th:href="@{}" class="nav-link">Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{}" class="nav-link">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{}" class="nav-link">Cerrar sesion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<article>
+    <section>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex p-0">
+                    <h3 class="card-title p-3">¡Bienvenido!</h3>
+                    <ul class="nav nav-pills ml-auto p-2">
+                        <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Pedidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Servicios</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            La sección de Pedidos es una sección pensada para que usted, el cliente, tenga un área
+                            donde consultar sus operaciones relacionadas a sus pedidos, las consultas de sus pedidos
+                            pendientes y finalizados, así como también darle un espacio para que pueda solicitar
+                            nuevos pedidos los cuales serán enviados a un domicilio que tenga relacionado.
+                        </div>
+                        <div class="tab-pane" id="tab_2">
+                            La sección de Servicios es una sección pensada para que usted, el cliente, tenga un área
+                            donde consultar sus operaciones relacionadas a sus servicios, las consultas de sus servicios
+                            ppendientes y finalizados, así como también darle un espacio para que pueda solicitar
+                            nuevos servicios los cuiales serán realizados para la máquina que usted indique.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</article>
+<aside></aside>
+<footer>
+    <p>&copy; 2024 Santiago Villegas Fernando</p>
+    <p>Desarrollo de Sistemas con Tecnología Java Emisión 14</p>
+</footer>
+<!--<script src="../../static/node_modules/admin-lte/dist/js/adminlte.min.js"></script>-->
+</body>
+</html>

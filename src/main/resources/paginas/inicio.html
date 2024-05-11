@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="es">
+<head>
+    <meta http-equiv="refresh" content="5;URL=http://localhost:8080/inicio">
+    <title>Title</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/iconos/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/tema/miestilo.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>Iniciando</h1>
+        <div class="opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <img th:src="@{/imagen/logo_inicio.png}" width="25%" height="25%">
+        </div>
+        <h3 th:text="${nombreAplicacion}"></h3>
+        <h3 th:text="${fecha}"></h3>
+        <i class="bi-window-fullscreen" style="font-size: 4rem; color: cornflowerblue;"></i><br>
+        <img th:src="@{/iconos/reception-4.svg}" alt="Spring MVC" width="32" height="32">
+    </div>
+</div>
+</body>
+</html>
