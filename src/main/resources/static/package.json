@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "admin-lte": "3.2",
+    "bootstrap": "^5.3.3",
+    "npm": "^10.6.0"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11"
+  }
+}
