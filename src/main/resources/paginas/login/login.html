@@ -16,10 +16,10 @@
 <div class="container">
     <div class="row">
         <div class="login-box">
-            <div th:if="${param.error}">
+            <div th:if="${error}">
                 <div class="alert alert-danger">Usuario o contraseña incorrecto.</div>
             </div>
-            <div th:if="${param.logout}">
+            <div th:if="${logout}">
                 <div class="alert alert-success">Te has desconectado.</div>
             </div>
             <div class="card">
@@ -30,7 +30,7 @@
                     <p class="login-box-msg">Ingresa tus credenciales para iniciar sesion</p>
                     <form method="post" th:action="@{/login/token}" class="form-horizontal" role="form">
                         <div class="input-group mb-3">
-                            <input type="text" id="username" name="username" class="form-control" placeholder="RFC">
+                            <input type="text" id="rfc" name="rfc" class="form-control" placeholder="RFC">
                         </div>
                         <div class="input-group mb-3">
                             <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña">

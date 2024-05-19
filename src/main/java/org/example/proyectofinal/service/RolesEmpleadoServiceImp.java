@@ -6,6 +6,7 @@ import org.example.proyectofinal.models.roles.Rol;
 import org.example.proyectofinal.repository.RolesEmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,13 +30,20 @@ public class RolesEmpleadoServiceImp implements RolesEmpleadoService{
     }
 
     @Override
+    public List<String> getRolesEmpleado(Empleado empleado) {
+        return rolesEmpleadoRepository.getAllByEmpleado(empleado).stream()
+            .map(rolesEmpleado -> rolesEmpleado.getRol().getRol())
+            .toList();
+    }
+
+    @Override
     public List<RolesEmpleado> getRolEmpleadoByEmpleadoId(int id) {
         return List.of();
     }
 
     @Override
     public Empleado getEmpleadoByPersonaFisicaRfc(String fisicaRfc) {
-        return null;
+        return rolesEmpleadoRepository.getEmpleadoByRfc(fisicaRfc);
     }
 
     @Override
@@ -60,6 +68,6 @@ public class RolesEmpleadoServiceImp implements RolesEmpleadoService{
 
     @Override
     public boolean existsRolEmpleadoByEmpleadoPersonaFisicaRfc(String fisicaRfc) {
-        return rolesEmpleadoRepository.existsByEmpleado_PersonaFisica_Rfc(fisicaRfc);
+        return rolesEmpleadoRepository.existsRolesEmpleadoByEmpleado_PersonaFisica_Rfc(fisicaRfc);
     }
 }

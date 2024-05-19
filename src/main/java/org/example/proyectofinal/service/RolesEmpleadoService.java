@@ -10,6 +10,7 @@ public interface RolesEmpleadoService {
     RolesEmpleado addRolEmpleado(Empleado empleado, Rol rol); //create
     List<RolesEmpleado> getRolesEmpleados(); //read
     List<RolesEmpleado> getRolEmpleado(Empleado empleado);
+    List<String> getRolesEmpleado(Empleado empleado);
     List<RolesEmpleado> getRolEmpleadoByEmpleadoId(int id);
     Empleado getEmpleadoByPersonaFisicaRfc(String fisicaRfc);
     void updateRolEmpleado(RolesEmpleado rolEmpleado); //update

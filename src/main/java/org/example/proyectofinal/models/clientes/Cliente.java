@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.example.proyectofinal.models.personasFisicas.PersonaFisica;
 import org.example.proyectofinal.models.personasMorales.PersonaMoral;
 import org.example.proyectofinal.models.roles.Rol;
+import org.example.proyectofinal.util.conveters.TipoPersonaConverter;
 import org.example.proyectofinal.util.enums.TipoPersona;
 import org.hibernate.annotations.Check;
 
@@ -27,18 +28,19 @@ public class Cliente {
     private int id;
     @NotNull
     // @Length todo realizar el length
+    @Column(name = "contraseña")
     private String password;
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = TipoPersonaConverter.class)
     @Column(name = "tipo_persona")
     private TipoPersona tipoPersona;
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "id_personas_fisicas")
+    @OneToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_personas_fisicas")
     private PersonaFisica personaFisica;
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "id_personas_morales")
+    @OneToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_personas_morales")
     private PersonaMoral personaMoral;
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "id_roles")
+    @JoinColumn(name = "id_roles")
     @NotNull
     private Rol rol;
 

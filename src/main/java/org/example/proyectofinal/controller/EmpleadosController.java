@@ -3,9 +3,8 @@ package org.example.proyectofinal.controller;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.proyectofinal.models.clientes.Cliente;
 import org.example.proyectofinal.models.clientes.dtos.ClienteLoginDto;
-import org.example.proyectofinal.models.clientes.dtos.ClienteRegisterDto;
+import org.example.proyectofinal.models.empleados.Empleado;
 import org.example.proyectofinal.models.personasFisicas.PersonaFisica;
 import org.example.proyectofinal.models.personasMorales.PersonaMoral;
 //import org.example.proyectofinal.security.jwt.JWTTokenProvider;
@@ -28,12 +27,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Controller
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/empleados")
+public class EmpleadosController {
 
     @Autowired
     private ClienteService clienteService;
@@ -49,7 +45,7 @@ public class ClienteController {
     @GetMapping("/inicio")
     public String inicio(Model model, HttpSession session,
                          @ModelAttribute ClienteLoginDto authRequestDTO, HttpServletResponse response) {
-        return "/clientes/inicio";
+        return "/empleados/inicio";
     }
 
 }

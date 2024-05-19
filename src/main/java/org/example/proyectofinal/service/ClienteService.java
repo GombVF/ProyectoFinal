@@ -15,4 +15,6 @@ public interface ClienteService {
     void deleteClienteByTipoPersonaRfc(String rfc);
     public ClienteRegisterDto convertToDto(Cliente cliente);
     public Cliente convertToEntity(ClienteRegisterDto clienteRegisterDto);
+
+    public boolean existsClienteByTipoPersonaRfc(String rfc);
 }

@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.proyectofinal.models.areas.Area;
 import org.example.proyectofinal.models.personasFisicas.PersonaFisica;
-import org.example.proyectofinal.util.enums.TipoEmpleado;
 
 @Entity
 @Table(name = "empleados")
@@ -22,18 +21,20 @@ public class Empleado {
     private int id;
     @NotNull
     // @Length todo realizar el length
+    @Column(name = "contraseña")
     private String password;
     @Column(name = "estatus", nullable = false)
     private boolean status;
-    @Column(name = "tipo_empleado", nullable = false)
-    private TipoEmpleado tipoEmpleado;
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "id_jefe")
     private Empleado Jefe;
     @NotNull
     @OneToOne
+    @JoinColumn(name = "id_areas")
     private Area area;
     @NotNull
     @OneToOne
+    @JoinColumn(name = "id_personas_fisicas")
     private PersonaFisica personaFisica;
 }

@@ -19,12 +19,12 @@ public class RolesEmpleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name = "id_empleados")
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_empleados")
     @NotNull
     private Empleado empleado;
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "id_roles")
+    @JoinColumn(name = "id_roles")
     @NotNull
     private Rol rol;
 }
