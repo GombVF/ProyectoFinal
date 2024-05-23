@@ -29,7 +29,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -52,98 +54,16 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model) {
-
         return "/login/login";
     }
 
-    //@PostMapping("/login_success_handler")
-    //public String loginSuccessHandler() {
-    //    System.out.println("Logging user login success...");
-    //    return "clientes/inicio";
-    //}
-    //
-    //@PostMapping("/login_failure_handler")
-    //public String loginFailureHandler() {
-    //    System.out.println("Login failure handler....");
-    //    return "clientes/login";
-    //}
-
-    //@GetMapping("/register")
-    //public String showRegistrationForm(Model model) {
-    //    model.addAttribute("user", new Cliente());
-    //    return "signup_form";
-    //}
-    //
-    //@PostMapping("/process_register")
-    //public String processRegister(Cliente user){
-    //    return "register_success";
-    //}
-
-    //@PostMapping("/token")
-    //public String createAuthenticationToken(Model model, HttpSession session,
-    //                                        @ModelAttribute ClienteLoginDto loginUserRequest,
-    //                                        HttpServletResponse res) throws Exception {
-    //    try {
-    //        String jwtToken;
-    //        if (rolesEmpleadoService.existsRolEmpleadoByEmpleadoPersonaFisicaRfc(loginUserRequest.getRfc())){
-    //            Empleado user = rolesEmpleadoService.getEmpleadoByPersonaFisicaRfc(loginUserRequest.getRfc());
-    //            Authentication authentication = authenticate(loginUserRequest.getRfc(),
-    //                loginUserRequest.getPassword());
-    //            jwtToken = jwtTokenProvider.generateJwtTokenEmpleados(authentication, user);
-    //            JwtRequest jwtRequest = new JwtRequest(jwtToken, (long)user.getId(), user.getPersonaFisica().getRfc(),
-    //                jwtTokenProvider.getExpiryDuration(), authentication.getAuthorities());
-    //            Cookie cookie = new Cookie("token",jwtToken);
-    //            cookie.setMaxAge(Integer.MAX_VALUE);
-    //            res.addCookie(cookie);
-    //            session.setAttribute("msg","Login OK!");
-    //            //return "/empleados/inicio";
-    //            res.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-    //            return "redirect:/empleados/inicio";
-    //        }
-    //        else if (clienteService.existsClienteByTipoPersonaRfc(loginUserRequest.getRfc())){
-    //            Cliente user = clienteService.getClienteByTipoPersonaRfc(loginUserRequest.getRfc());
-    //            Authentication authentication = authenticate(loginUserRequest.getRfc(),
-    //                loginUserRequest.getPassword());
-    //            jwtToken = jwtTokenProvider.generateJwtTokenClientes(authentication, user);
-    //            JwtRequest jwtRequest;
-    //            if (user.getTipoPersona() == TipoPersona.FISICA){
-    //                jwtRequest = new JwtRequest(jwtToken, (long)user.getId(), user.getPersonaFisica().getRfc(),
-    //                    jwtTokenProvider.getExpiryDuration(), authentication.getAuthorities());
-    //            }
-    //            else{
-    //                jwtRequest = new JwtRequest(jwtToken, (long)user.getId(), user.getPersonaFisica().getRfc(),
-    //                    jwtTokenProvider.getExpiryDuration(), authentication.getAuthorities());
-    //            }
-    //            Cookie cookie = new Cookie("token",jwtToken);
-    //            cookie.setMaxAge(Integer.MAX_VALUE);
-    //            res.addCookie(cookie);
-    //            session.setAttribute("msg","Login OK!");
-    //            return "redirect:/clientes/inicio";
-    //        }
-    //        else {
-    //            model.addAttribute("error", true);
-    //            return "/login/login";
-    //        }
-    //
-    //    } catch (UsernameNotFoundException | BadCredentialsException e) {
-    //        session.setAttribute("msg","Bad Credentials");
-    //        return "redirect:/login";
-    //    }
-    //}
-
-    private Authentication authenticate(String username, String password) throws Exception {
-        try {
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
-        } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
-        }
-    }
 
     @PostMapping("/token")
-    public String AuthenticateAndGetToken(Model model, HttpSession session,
-                                          @ModelAttribute ClienteLoginDto authRequestDTO, HttpServletResponse response) {
+    public String AuthenticateAndGetToken(RedirectAttributes model,
+                                          HttpSession session,
+                                          RedirectAttributes flash,
+                                          @ModelAttribute ClienteLoginDto authRequestDTO,
+                                          HttpServletResponse response) {
         Authentication authentication;
         if (rolesEmpleadoService.existsRolEmpleadoByEmpleadoPersonaFisicaRfc(authRequestDTO.getRfc())) {
             authentication =
@@ -171,8 +91,8 @@ public class LoginController {
                 return "redirect:/empleados/inicio";
             }
             else{
-                session.setAttribute("msg","Bad Credentials");
-                return "redirect:/login";
+                flash.addFlashAttribute("error",true);
+                return "redirect:/login/login";
             }
         } else if (clienteService.existsClienteByTipoPersonaRfc(authRequestDTO.getRfc())) {
             authentication =
@@ -200,11 +120,11 @@ public class LoginController {
                 return "redirect:/clientes/inicio";
             }
             else{
-                session.setAttribute("msg","Bad Credentials");
-                return "redirect:/login";
+                flash.addFlashAttribute("error",true);
+                return "redirect:/login/login";
             }
         }
-        session.setAttribute("msg","Bad Credentials");
-        return "redirect:/login";
+        flash.addFlashAttribute("error",true);
+        return "redirect:/login/login";
     }
 }

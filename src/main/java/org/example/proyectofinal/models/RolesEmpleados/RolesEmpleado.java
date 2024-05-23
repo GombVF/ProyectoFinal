@@ -23,7 +23,7 @@ public class RolesEmpleado {
     @JoinColumn(name = "id_empleados")
     @NotNull
     private Empleado empleado;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "id_roles")
     @NotNull
     private Rol rol;

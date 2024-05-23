@@ -11,4 +11,5 @@ public interface UbicacionService {
     void updateUbicacion(Ubicacion ubicacion);
     void updateUbicacionByCodigoPostal(String codigoPostal, Ubicacion ubicacion);
     void deleteUbicacionByCodigoPostal(String codigoPostal);
+    void deleteUbicacionById(Integer id);
 }

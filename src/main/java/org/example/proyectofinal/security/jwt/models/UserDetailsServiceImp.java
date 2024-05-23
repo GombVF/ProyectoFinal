@@ -1,5 +1,6 @@
 package org.example.proyectofinal.security.jwt.models;
 
+import org.example.proyectofinal.models.RolesEmpleados.RolesEmpleado;
 import org.example.proyectofinal.models.clientes.Cliente;
 import org.example.proyectofinal.models.clientes.dtos.ClienteLoginDto;
 import org.example.proyectofinal.models.empleados.Empleado;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 
 
 @Component
@@ -33,8 +35,10 @@ public class UserDetailsServiceImp implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         logger.debug("Entering in loadUserByUsername Method...");
-        Empleado empleado = rolesEmpleadoService.getEmpleadoByPersonaFisicaRfc(username);
-        if(empleado != null){
+        Optional<RolesEmpleado> rolesEmpleado = rolesEmpleadoService.getEmpleadoByPersonaFisicaRfc(username);
+
+        if(rolesEmpleado.isPresent()){
+            Empleado empleado = rolesEmpleado.get().getEmpleado();
             logger.info("User Authenticated Successfully..!!!");
             ClienteLoginDto user = new ClienteLoginDto(empleado.getPersonaFisica().getRfc(),empleado.getPassword());
             return new CustomUserDetails(user, rolesEmpleadoService, clienteService);

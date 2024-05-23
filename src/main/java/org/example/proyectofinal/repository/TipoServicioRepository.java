@@ -1,7 +1,7 @@
 package org.example.proyectofinal.repository;
 
 import org.example.proyectofinal.models.tiposServicios.TipoServicio;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TipoServicioRepository extends CrudRepository<TipoServicio, Integer> {
+public interface TipoServicioRepository extends JpaRepository<TipoServicio, Integer> {
 }

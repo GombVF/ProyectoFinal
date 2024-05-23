@@ -33,7 +33,8 @@ public class CustomUserDetails extends ClienteLoginDto implements UserDetails {
         this.password= byUsername.getPassword();
         List<GrantedAuthority> auths = new ArrayList<>();
         if (rolesEmpleadoService.existsRolEmpleadoByEmpleadoPersonaFisicaRfc(username)) {
-            Empleado empleado = rolesEmpleadoService.getEmpleadoByPersonaFisicaRfc(username);
+            Optional<RolesEmpleado> rolesEmpleado = rolesEmpleadoService.getEmpleadoByPersonaFisicaRfc(username);
+            Empleado empleado = rolesEmpleado.get().getEmpleado();
             for(String role : rolesEmpleadoService.getRolesEmpleado(empleado)){
                 auths.add(new SimpleGrantedAuthority(role.toUpperCase()));
             }

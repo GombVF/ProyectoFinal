@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" th:href="@{/node_modules/admin-lte/dist/css/adminlte.css}">
+    <title>Document</title>
+</head>
+<body>
+<nav th:replace="~{plantillas/nav::nav}"></nav>
+<article>
+    <div th:if="${hasNoTAddress}">
+        <div class="alert alert-danger">El Cliente no cuenta con un domicilio registrado.</div>
+    </div>
+</article>
+<article>
+    <section>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex p-0">
+                    <h3 class="card-title p-3">¡Pedidos!</h3>
+                    <ul class="nav nav-pills ml-auto p-2">
+                        <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab" onclick="showTab('tab_1')">Solicitar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab" onclick="showTab('tab_2')">Mis pedidos</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <p>Sección para solicitar un pedido.</p>
+                            En esta parte podrá solicitar productos los cuales le llegarán a su domicilio*. Puede solicitar
+                            cuantos productos desee por pedido.
+                            <p>*Es necesario que se cuente con un domicilio registrado al cual se
+                                enviarán los productos de su pedido.</p>
+                            <ul class="navbar-nav">
+                                <li sec:authorize="isAuthenticated()" class="nav-item">
+                                    <form class="link" th:action="@{/clientes/pedidos/catalogo}" method="get">
+                                        <div>
+                                            <input type="hidden" id="selectedProducts" name="selectedProductIds" th:value="${selectedProducts}">
+                                        </div>
+                                        <input class="link" type="submit" value="Comprar"/>
+                                    </form>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="tab_2">
+                            <p>Sección de seguimiento de pedidos</p>
+                            En esta parte podrá revisar sus pedidos pendientes y sus pedidos completados.
+                            <ul class="navbar-nav">
+                                <li sec:authorize="isAuthenticated()" class="nav-item">
+                                    <form class="link" th:action="@{/clientes/pedidos/pendientes}" method="post">
+                                        <input class="link" type="submit" value="Pendientes"/>
+                                    </form>
+                                </li>
+                                <li sec:authorize="isAuthenticated()" class="nav-item">
+                                    <form class="link" th:action="@{/clientes/pedidos/completados}" method="post">
+                                        <input class="link" type="submit" value="Completados"/>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</article>
+<aside></aside>
+<footer>
+    <p>&copy; 2024 Santiago Villegas Fernando</p>
+    <p>Desarrollo de Sistemas con Tecnología Java Emisión 14</p>
+</footer>
+<!--<script src="../../static/node_modules/admin-lte/dist/js/adminlte.min.js"></script>-->
+<script type="text/javascript" th:src="@{/scripts/clientes/funciones.js}"></script>
+</body>
+</html>

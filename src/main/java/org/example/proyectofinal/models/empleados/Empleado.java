@@ -25,7 +25,6 @@ public class Empleado {
     private String password;
     @Column(name = "estatus", nullable = false)
     private boolean status;
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_jefe")
     private Empleado Jefe;
@@ -34,7 +33,14 @@ public class Empleado {
     @JoinColumn(name = "id_areas")
     private Area area;
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_personas_fisicas")
     private PersonaFisica personaFisica;
+
+    public Empleado(PersonaFisica personaFisica, Area area, Boolean status, String password){
+        this.personaFisica = personaFisica;
+        this.area = area;
+        this.status = status;
+        this.password = password;
+    }
 }

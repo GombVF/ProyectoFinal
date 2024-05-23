@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteServiceImp implements ClienteService{
@@ -19,12 +20,17 @@ public class ClienteServiceImp implements ClienteService{
 
     @Override
     public Cliente addCliente(Cliente cliente) {
-        return null;
+        return clienteRepository.save(cliente);
     }
 
     @Override
     public List<Cliente> getClientes() {
-        return List.of();
+        return clienteRepository.findAll();
+    }
+
+    @Override
+    public Optional<Cliente> getClienteById(Integer id) {
+        return clienteRepository.findById(id);
     }
 
     @Override
@@ -35,6 +41,7 @@ public class ClienteServiceImp implements ClienteService{
 
     @Override
     public void updateCliente(Cliente cliente) {
+        clienteRepository.save(cliente);
 
     }
 
@@ -53,6 +60,11 @@ public class ClienteServiceImp implements ClienteService{
 
     }
 
+    @Override
+    public void deleteClienteById(Integer id) {
+        clienteRepository.deleteById(id);
+    }
+
     public ClienteRegisterDto convertToDto(Cliente cliente) {
         return modelMapper.map(cliente, ClienteRegisterDto.class);
     }
@@ -65,6 +77,12 @@ public class ClienteServiceImp implements ClienteService{
     public boolean existsClienteByTipoPersonaRfc(String rfc) {
         return (clienteRepository.existsClienteByPersonaFisica_Rfc(rfc)
             || clienteRepository.existsClienteByPersonaFisica_Rfc(rfc));
+    }
+
+    @Override
+    public boolean hasRegisteredAddress(String rfc) {
+        Cliente cliente = this.getClienteByTipoPersonaRfc(rfc);
+        return cliente.getDomicilio() != null;
     }
 
 

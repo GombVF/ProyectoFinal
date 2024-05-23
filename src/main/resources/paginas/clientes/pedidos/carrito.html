@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/node_modules/bootstrap/dist/css/bootstrap.min.css}">
+    <title>Document</title>
+</head>
+<body>
+<nav th:replace="~{plantillas/nav::nav}"></nav>
+<article>
+
+</article>
+<article>
+    <section>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Productos</h3>
+            </div>
+
+            <div class="card-body">
+                <form id="shoppingCartForm" th:action="@{/clientes/pedidos/resumen}" method="post">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                            <th>Cantidad Sellos</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="envio : ${selectedProductos.content}">
+                            <td th:text="${envio.producto.producto}"></td>
+                            <td th:text="${envio.producto.cantidad}"></td>
+                            <td th:text="${envio.producto.unidad}"></td>
+                            <td th:text="${envio.producto.cantidadSellos}"></td>
+                            <td th:text="${envio.producto.precio}"></td>
+                            <td>
+                                <input type="hidden" th:value="${envio.producto.id}" name="productIds"/>
+                                <input type="number" name="quantities" min="1" max="100" step="1" value="1"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Comprar</button>
+                </form>
+                <nav th:replace="~{plantillas/pag-nav::paginador}"></nav>
+            </div>
+
+        </div>
+    </section>
+
+</article>
+<aside></aside>
+<footer>
+    <p>&copy; 2024 Santiago Villegas Fernando</p>
+    <p>Desarrollo de Sistemas con Tecnología Java Emisión 14</p>
+</footer>
+<!--<script src="../../static/node_modules/admin-lte/dist/js/adminlte.min.js"></script>-->
+</body>
+</html>

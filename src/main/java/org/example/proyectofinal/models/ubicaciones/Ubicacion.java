@@ -28,7 +28,7 @@ public class Ubicacion {
     @NotNull
     private String exterior;
     @Column(columnDefinition = "DEFAULT 'N/A'")
-    @Length(min = 1, max = 50)
+    @Length(min = 0, max = 50)
     private String interior;
     @Length(min = 1, max = 300)
     @NotNull
@@ -36,5 +36,14 @@ public class Ubicacion {
     @ManyToOne
     @JoinColumn(name = "id_codigos_postales")
     private CodigoPostal codigoPostal;
+
+    public Ubicacion(String calle, String exterior, String interior, String referencias, CodigoPostal cp){
+        this.calle = calle;
+        this.exterior = exterior;
+        this.interior = interior;
+        this.referencias = referencias;
+        this.codigoPostal = cp;
+
+    }
 
 }

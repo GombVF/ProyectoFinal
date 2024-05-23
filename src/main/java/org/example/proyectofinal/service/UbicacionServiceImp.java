@@ -1,15 +1,20 @@
 package org.example.proyectofinal.service;
 
 import org.example.proyectofinal.models.ubicaciones.Ubicacion;
+import org.example.proyectofinal.repository.UbicacionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UbicacionServiceImp implements UbicacionService {
+    @Autowired
+    private UbicacionRepository ubicacionRepository;
+
     @Override
     public Ubicacion addUbicacion(Ubicacion ubicacion) {
-        return null;
+        return ubicacionRepository.save(ubicacion);
     }
 
     @Override
@@ -35,5 +40,10 @@ public class UbicacionServiceImp implements UbicacionService {
     @Override
     public void deleteUbicacionByCodigoPostal(String codigoPostal) {
 
+    }
+
+    @Override
+    public void deleteUbicacionById(Integer id) {
+        ubicacionRepository.deleteById(id);
     }
 }

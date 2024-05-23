@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.example.proyectofinal.models.personasFisicas.PersonaFisica;
 import org.example.proyectofinal.models.personasMorales.PersonaMoral;
 import org.example.proyectofinal.models.roles.Rol;
+import org.example.proyectofinal.models.ubicaciones.Ubicacion;
 import org.example.proyectofinal.util.conveters.TipoPersonaConverter;
 import org.example.proyectofinal.util.enums.TipoPersona;
 import org.hibernate.annotations.Check;
@@ -43,21 +44,22 @@ public class Cliente {
     @JoinColumn(name = "id_roles")
     @NotNull
     private Rol rol;
+    @OneToOne
+    @JoinColumn(name = "id_domicilio")
+    Ubicacion domicilio;
 
-    public Cliente(String tipoPersona, PersonaFisica personaFisica) {
-        this.tipoPersona = TipoPersona.valueOf(tipoPersona);
+    public Cliente(String tipoPersona, PersonaFisica personaFisica, String password, Rol rol) {
+        this.tipoPersona = TipoPersona.fromString(tipoPersona);
         this.personaFisica = personaFisica;
+        this.password = password;
+        this.rol = rol;
     }
 
-    public Cliente(String tipoPersona, PersonaMoral personaMoral) {
-        this.tipoPersona = TipoPersona.valueOf(tipoPersona);
+    public Cliente(String tipoPersona, PersonaMoral personaMoral,String password, Rol rol) {
+        this.tipoPersona = TipoPersona.fromString(tipoPersona);
         this.personaMoral = personaMoral;
+        this.password = password;
+        this.rol = rol;
     }
 
-    // TODO: Validar que esta validacion funcione
-    @AssertTrue(message = "El tipo de persona y la persona relacionada deben de coincidir")
-    public boolean isTipoClienteValid() {
-        return (personaMoral == null && tipoPersona == TipoPersona.MORAL) ||
-            (personaFisica == null && tipoPersona == TipoPersona.FISICA);
-    }
 }

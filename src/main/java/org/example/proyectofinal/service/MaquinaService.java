@@ -7,9 +7,12 @@ import java.util.List;
 public interface MaquinaService {
     Maquina addMaquina(Maquina maquina); //create
     List<Maquina> getMaquinas(); //read
+    List<Maquina> getMaquinasUsuario(Integer idCliente);
     Maquina getMaquina(int id);
     void updateMaquina(Maquina maquina); //update
     void updateMaquinaById(int id, Maquina maquina);
     void deleteMaquina(Maquina maquina); //delete
-    void deleteMaquinaById(int id);
+    void deleteMaquinaById(Long id);
+
+    boolean clienteHasMaquina(int idCliente);
 }

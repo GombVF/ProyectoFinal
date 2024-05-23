@@ -7,6 +7,7 @@ import java.util.List;
 public interface CodigoPostalService {
     CodigoPostal addCodigoPostal(CodigoPostal codigoPostal); //Create
     List<CodigoPostal> getCodigoPostal(); //Reade
+    List<CodigoPostal> findAll();
     CodigoPostal getCodigoPostalByCodigoPostal(String codigoPostal);
     void updateCodigoPostal(CodigoPostal codigoPostal); //Update
     void updateCodigoPostalByCodigoPostal(CodigoPostal codigoPostal);

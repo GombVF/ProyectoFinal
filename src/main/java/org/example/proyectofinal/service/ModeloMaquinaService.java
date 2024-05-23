@@ -8,6 +8,7 @@ public interface ModeloMaquinaService {
     ModeloMaquina addModeloMaquina(ModeloMaquina m); //create
     List<ModeloMaquina> getModelosMaquinas(); //read
     ModeloMaquina getModeloMaquina(int id);
+    ModeloMaquina getModeloMaquinaByModelo(String modelo);
     void updateModeloMaquina(ModeloMaquina m); //update
     void updateModeloMaquinaById(int id, ModeloMaquina m);
     void deleteModeloMaquina(int id); //delete

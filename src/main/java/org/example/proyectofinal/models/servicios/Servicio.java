@@ -22,16 +22,20 @@ public class Servicio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
-    private Date fecha;
+    @Column(name = "fecha_inicio")
+    private Date fechaInicio;
+    @Column(name = "fecha_fin")
+    private Date fechaFin;
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "id_maquinas")
     private Maquina maquina;
-    @NotNull
     @ManyToOne
+    @JoinColumn(name = "id_empleados")
     private Empleado empleado;
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "id_tipos_servicios")
     private TipoServicio tipoServicio;
 
 }

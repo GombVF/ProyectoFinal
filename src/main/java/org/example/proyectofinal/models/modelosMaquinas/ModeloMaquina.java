@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "modelos_maquinas")
+@Table(name = "modelo_maquinas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

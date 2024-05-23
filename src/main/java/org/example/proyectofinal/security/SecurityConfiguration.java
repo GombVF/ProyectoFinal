@@ -32,6 +32,7 @@ public class SecurityConfiguration {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
     //@Bean
     //public UserDetailsService userDetailsService() {
     //    return new UserDetailsServiceImp();
@@ -45,7 +46,9 @@ public class SecurityConfiguration {
                     .requestMatchers("/login/login").permitAll()
                     .requestMatchers("/login/token").permitAll()
                     .requestMatchers("/empleados/rrhh/**").hasAnyAuthority("RECURSOS HUMANOS")
-                    .requestMatchers("/empleados/**").hasAnyAuthority("EJECUTIVO")
+                    .requestMatchers("/empleados/**").hasAnyAuthority("SERVICIOS", "VENTAS", "MANAGER", "SUPPORT",
+                        "DEVELOPER", "TESTER", "ANALYST", "CONSULTANT", "ENGINEER", "RECURSOS HUMANOS", "SALES",
+                        "MARKETING", "FINANCE", "OPERATIONS")
                     .requestMatchers("/clientes/**").hasAuthority("CLIENTE")
                     //.anyRequest().permitAll()
                     .anyRequest().authenticated()
@@ -56,7 +59,8 @@ public class SecurityConfiguration {
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutUrl("login/logout")
+                .logoutUrl("/doLogout")
+                .logoutSuccessUrl("/login/login?logout")
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessHandler(customLogoutSuccessHandler)
                 .clearAuthentication(true)

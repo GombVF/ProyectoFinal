@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/node_modules/admin-lte/dist/css/adminlte.css}">
+    <title>FSV</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a href="#" class="navbar-brand">FSV</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('RECURSOS HUMANOS')">
+                    <form method="get" th:action="@{/empleados/rrhh/solicitudRegistroCliente}">
+                        <button class="btn btn-link nav-link" type="submit">Registrar Cliente</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('RECURSOS HUMANOS')">
+                    <form method="get" th:action="@{/empleados/rrhh/clientes}">
+                        <button class="btn btn-link nav-link" type="submit">Consultar Clientes</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('RECURSOS HUMANOS')">
+                    <form method="get" th:action="@{/empleados/rrhh/solicitudRegistroEmpleado}">
+                        <button class="btn btn-link nav-link" type="submit">Registrar Empleado</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('RECURSOS HUMANOS')">
+                    <form method="get" th:action="@{/empleados/rrhh/empleados}">
+                        <button class="btn btn-link nav-link" type="submit">Consultar Empleados</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('SERVICIOS')">
+                    <form method="get" th:action="@{/empleados/servicios/consultarSinAtender}">
+                        <button class="btn btn-link nav-link" type="submit">Servicios por atender</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('SERVICIOS')">
+                    <form method="get" th:action="@{/empleados/servicios/misServiciosPendientes}">
+                        <button class="btn btn-link nav-link" type="submit">Mis servicios pendientes</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('SERVICIOS')">
+                    <form method="get" th:action="@{/empleados/servicios/misServiciosCompletados}">
+                        <button class="btn btn-link nav-link" type="submit">Mis servicios atendidos</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('VENTAS')">
+                    <form method="get" th:action="@{/empleados/pedidos/consultarSinAtender}">
+                        <button class="btn btn-link nav-link" type="submit">Pedidos por atender</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('VENTAS')">
+                    <form method="get" th:action="@{/empleados/pedidos/misPedidosPendientes}">
+                        <button class="btn btn-link nav-link" type="submit">Mis pedidos pendientes</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('VENTAS')">
+                    <form method="get" th:action="@{/empleados/pedidos/misPedidosCompletados}">
+                        <button class="btn btn-link nav-link" type="submit">Mis pedidos atendidos</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <span class="nav-link"><span sec:authentication="name"></span></span>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form method="post" th:action="@{/doLogout}">
+                        <button class="btn btn-link nav-link" type="submit">Cerrar sesión</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

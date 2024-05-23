@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RolesEmpleadoServiceImp implements RolesEmpleadoService{
@@ -31,7 +32,7 @@ public class RolesEmpleadoServiceImp implements RolesEmpleadoService{
 
     @Override
     public List<String> getRolesEmpleado(Empleado empleado) {
-        return rolesEmpleadoRepository.getAllByEmpleado(empleado).stream()
+        return rolesEmpleadoRepository.getAllByEmpleado(empleado.getId()).stream()
             .map(rolesEmpleado -> rolesEmpleado.getRol().getRol())
             .toList();
     }
@@ -42,8 +43,10 @@ public class RolesEmpleadoServiceImp implements RolesEmpleadoService{
     }
 
     @Override
-    public Empleado getEmpleadoByPersonaFisicaRfc(String fisicaRfc) {
-        return rolesEmpleadoRepository.getEmpleadoByRfc(fisicaRfc);
+    public Optional<RolesEmpleado> getEmpleadoByPersonaFisicaRfc(String fisicaRfc) {
+        Optional<RolesEmpleado> rolesEmpleado =
+            rolesEmpleadoRepository.getRolesEmpleadoByEmpleadoPersonaFisicaRfc(fisicaRfc);
+        return rolesEmpleado;
     }
 
     @Override

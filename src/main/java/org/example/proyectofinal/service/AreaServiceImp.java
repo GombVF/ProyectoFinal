@@ -1,12 +1,18 @@
 package org.example.proyectofinal.service;
 
 import org.example.proyectofinal.models.areas.Area;
+import org.example.proyectofinal.repository.AreaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AreaServiceImp implements AreaService{
+
+    @Autowired
+    private AreaRepository areaRepository;
+
     @Override
     public Area addArea(Area area) {
         return null;
@@ -19,7 +25,7 @@ public class AreaServiceImp implements AreaService{
 
     @Override
     public Area getAreaByNombreArea(String nombreArea) {
-        return null;
+        return areaRepository.findByNombreArea(nombreArea);
     }
 
     @Override

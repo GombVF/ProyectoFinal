@@ -1,12 +1,17 @@
 package org.example.proyectofinal.service;
 
 import org.example.proyectofinal.models.codigosPostales.CodigoPostal;
+import org.example.proyectofinal.repository.CodigoPostalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CodigoPostalServiceImp implements CodigoPostalService{
+    @Autowired
+    private CodigoPostalRepository codigoPostalRepository;
+
     @Override
     public CodigoPostal addCodigoPostal(CodigoPostal codigoPostal) {
         return null;
@@ -15,6 +20,11 @@ public class CodigoPostalServiceImp implements CodigoPostalService{
     @Override
     public List<CodigoPostal> getCodigoPostal() {
         return List.of();
+    }
+
+    @Override
+    public List<CodigoPostal> findAll() {
+        return codigoPostalRepository.findAll();
     }
 
     @Override

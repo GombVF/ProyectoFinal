@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 public class ClienteMapper {
     @Autowired
@@ -15,20 +17,15 @@ public class ClienteMapper {
 
     public Cliente convertToCliente(ClienteRegisterDto clienteRegisterDto) {
         Cliente cliente = new Cliente();
-        if (clienteRegisterDto.getTipoPersona() == "Persona Física") {
-            PersonaFisica clienteFisica = new PersonaFisica();
-            clienteFisica.builder()
+        if (Objects.equals(clienteRegisterDto.getTipoPersona(), "Persona Física")) {
+            PersonaFisica clienteFisica = PersonaFisica.builder()
                 .nombre(clienteRegisterDto.getNombre()).paterno(clienteRegisterDto.getPaterno()).materno(clienteRegisterDto.getMaterno())
                 .rfc(clienteRegisterDto.getRfc()).build();
         }
-        else if (clienteRegisterDto.getTipoPersona() == "Persona Moral"){
-            PersonaMoral clienteMoral = new PersonaMoral();
-            clienteMoral.builder().razonSocial(clienteRegisterDto.getRazonSocial()).rfc(clienteRegisterDto.getRfc());
-
+        else if (Objects.equals(clienteRegisterDto.getTipoPersona(), "Persona Moral")){
+            PersonaMoral clienteMoral =
+                PersonaMoral.builder().razonSocial(clienteRegisterDto.getRazonSocial()).rfc(clienteRegisterDto.getRfc()).build();
         }
-
-
-
         return cliente;
 
 

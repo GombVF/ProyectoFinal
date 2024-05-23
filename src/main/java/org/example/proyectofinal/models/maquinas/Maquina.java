@@ -26,6 +26,11 @@ public class Maquina {
     private Cliente cliente;
     @OneToOne
     @NotNull
-    @PrimaryKeyJoinColumn(name = "id_modelos_maquinas")
+    @JoinColumn(name = "id_modelo_maquinas")
     private ModeloMaquina modeloMaquina;
+
+    public Maquina(boolean tipoMaquina,ModeloMaquina mm){
+        this.tipoMaquina = tipoMaquina;
+        this.modeloMaquina = mm;
+    }
 }

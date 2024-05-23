@@ -2,11 +2,11 @@ package org.example.proyectofinal.repository;
 
 import org.example.proyectofinal.models.clientes.Cliente;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClienteRepository extends CrudRepository<Cliente, Integer> {
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     boolean existsClienteByPersonaFisica_Rfc(String personaFisica);
     boolean existsClienteByPersonaMoral_Rfc(String personaMoral);
 
