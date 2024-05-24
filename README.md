@@ -1,3 +1,5 @@
+¡Importante!
+Cambiar credenciales de base de datos en los application.properties y/o application.yml
 Los usuarios a utilizar para replicar las pruebas realizadas en el video son los siguientes:
 -  XDHL400909XT4: Cliente
 -  OOUP870416HA7:Servicios
