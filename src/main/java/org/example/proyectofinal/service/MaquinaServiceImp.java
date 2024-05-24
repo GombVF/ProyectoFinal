@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MaquinaServiceImp implements MaquinaService{
@@ -27,12 +28,13 @@ public class MaquinaServiceImp implements MaquinaService{
     }
 
     @Override
-    public Maquina getMaquina(int id) {
-        return null;
+    public Optional<Maquina> getMaquina(int id) {
+        return maquinaRepository.findById((long)id);
     }
 
     @Override
     public void updateMaquina(Maquina maquina) {
+        maquinaRepository.save(maquina);
 
     }
 

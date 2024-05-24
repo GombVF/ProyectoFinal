@@ -61,7 +61,7 @@
             <tr th:each="tp : ${serviciosCompletos}">
                 <td th:text="${tp.maquina.modeloMaquina.modelo}"></td>
                 <td>
-                    <span th:if="${tp.empleado != null and tp.empleado.personaFisica != null}" th:text="${tp.empleado.personaFisica.nombre} + ' ' + tp.empleado.personaFisica.paterno + ' ' + tp.empleado.personaFisica.materno"></span>
+                    <span th:if="${tp.empleado != null and tp.empleado.personaFisica != null}" th:text="${tp.empleado.personaFisica.nombre} + ' ' + ${tp.empleado.personaFisica.paterno} + ' ' + ${tp.empleado.personaFisica.materno}"></span>
                     <span th:unless="${tp.empleado != null and tp.empleado.personaFisica != null}">En espera de ser atendido</span>
                 </td>
                 <td th:text="${tp.fechaInicio}"></td>

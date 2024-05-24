@@ -22,7 +22,7 @@ public class Maquina {
     @Column(name = "tipo_maquina",nullable = false)
     private boolean tipoMaquina;
     @ManyToOne
-    @JoinColumn(name = "id_clientes", nullable = false)
+    @JoinColumn(name = "id_clientes")
     private Cliente cliente;
     @OneToOne
     @NotNull

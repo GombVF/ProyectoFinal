@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body register-card-body">
                     <h3 class="login-box-msg">Registrarse</h3>
-                    <form th:action="@{/empleados/registroCliente}" th:object="${cliente}" method="post">
+                    <form th:action="@{/empleados/rrhh/registroCliente}" th:object="${cliente}" method="post">
                         <div class="mb-3">
                             <label for="tipoPersona" class="form-label">Tipo de persona</label>
                             <select id="tipoPersona" class="form-select" onchange="mostrarOcultarCampo()" th:field="*{tipoPersona}">

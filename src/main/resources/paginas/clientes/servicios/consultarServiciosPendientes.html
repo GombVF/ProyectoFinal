@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org" lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -61,7 +62,7 @@
             <tr th:each="tp : ${serviciosPendientes}">
                 <td th:text="${tp.maquina.modeloMaquina.modelo}"></td>
                 <td>
-                    <span th:if="${tp.empleado != null and tp.empleado.personaFisica != null}" th:text="${tp.empleado.personaFisica.nombre} + ' ' + tp.empleado.personaFisica.paterno + ' ' + tp.empleado.personaFisica.materno}"></span>
+                    <span th:if="${tp.empleado != null and tp.empleado.personaFisica != null}" th:text="${tp.empleado.personaFisica.nombre} + ' ' + ${tp.empleado.personaFisica.paterno} + ' ' + ${tp.empleado.personaFisica.materno}"></span>
                     <span th:unless="${tp.empleado != null and tp.empleado.personaFisica != null}">En espera de ser atentido</span>
                 </td>
                 <td th:text="${tp.fechaInicio}"></td>

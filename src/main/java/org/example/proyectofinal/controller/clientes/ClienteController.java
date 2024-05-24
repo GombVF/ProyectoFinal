@@ -32,10 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -68,7 +65,13 @@ public class ClienteController {
 
     @GetMapping("/inicio")
     public String inicio(Model model, HttpSession session,
-                         @ModelAttribute ClienteLoginDto authRequestDTO, HttpServletResponse response) {
+                         @ModelAttribute ClienteLoginDto authRequestDTO, RedirectAttributes flash,HttpServletResponse response) {
+        if (model.getAttribute("hasNotAddress")!= null) {
+            model.addAttribute("hasNotAddress",model.getAttribute("hasNotAddress").equals(true));
+        }
+        if(model.getAttribute("hasNotMachine") != null){
+            model.addAttribute("hasNotMachine",model.getAttribute("hasNotMachine").equals(true));
+        }
         return "/clientes/inicio";
     }
 
@@ -91,8 +94,8 @@ public class ClienteController {
         String username = jwtService.extractUsername(token);
         boolean hasAddress = clienteService.hasRegisteredAddress(username);
         if (!hasAddress) {
-            flash.addFlashAttribute("hasNotAddress", hasAddress);
-            return "redirect:/clientes/pedidos/inicio";
+            flash.addFlashAttribute("hasNotAddress", !hasAddress);
+            return "redirect:/clientes/inicio";
         }
         Pageable pagReq = PageRequest.of(page,10);
         Page<Producto> productos = productoService.findAll(pagReq);
@@ -186,7 +189,9 @@ public class ClienteController {
         }
         String username = jwtService.extractUsername(token);
         Cliente cliente = clienteService.getClienteByTipoPersonaRfc(username);
-
+        if(cliente.getDomicilio()==null){
+            return "redirect:/clientes/inicio";
+        }
         List<Envio> enviosPendientes = envioService.getEnviosUsuario(cliente.getDomicilio().getId());
         enviosPendientes = enviosPendientes.stream().filter(envio -> {
             List<EstatusEnvio> estatusPendientes = List.of(EstatusEnvio.SOLICITUD, EstatusEnvio.ATENCION,
@@ -224,6 +229,9 @@ public class ClienteController {
         }
         String username = jwtService.extractUsername(token);
         Cliente cliente = clienteService.getClienteByTipoPersonaRfc(username);
+        if(cliente.getDomicilio()==null){
+            return "redirect:/clientes/inicio";
+        }
 
         List<Envio> enviosCompletados = envioService.getEnviosUsuario(cliente.getDomicilio().getId());
         enviosCompletados =
@@ -461,9 +469,18 @@ public class ClienteController {
     }
 
     @GetMapping("/eliminarMaquina/{id}")
-    public String eliminarMaquina(@PathVariable("id") Long id,
+    public String eliminarMaquina(@PathVariable("id") int id,
+                                  HttpServletRequest request,
                                   RedirectAttributes flash){
-        maquinaService.deleteMaquinaById(id);
+        Optional<Maquina> maquina = maquinaService.getMaquina(id);
+        maquina.get().setCliente(null);
+        maquinaService.updateMaquina(maquina.get());
+        try{
+            maquinaService.deleteMaquinaById((long)id);
+        }catch (Exception ignored){
+
+        }
+
         return "redirect:/clientes/consultarMaquinas";
     }
 
@@ -515,6 +532,7 @@ public class ClienteController {
         }
         else{
             //todo: poner atributos de modelo de que no se encuentra disponible ya que no hay maquina registrada
+            flash.addFlashAttribute("hasNotMachine",true);
             return "redirect:/clientes/inicio";
         }
 
